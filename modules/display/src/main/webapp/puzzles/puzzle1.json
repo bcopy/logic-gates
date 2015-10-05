@@ -1,0 +1,16 @@
+{
+   "title" : "Warm-up",
+   "subtitle" : "Limber up...",
+   "operations" : ["operation1", "operation2", "operation3"],
+   "operators": [
+       "(function(input1,input2){ if(input2 && input2.state) { return input1.state + input2.state;} else { return input1.state } } )",
+       "(function(input1,input2){  return input1.state - 1; } )", 
+       "(function(input1,input2){  return input1.state + 2; } )"
+   ],
+   "truthTable": [
+      {"inputs": [{"id":"A", "state":2, "delay":0}, {"id":"B", "state":1, "delay":0}], "expectedResult":4},
+      {"inputs": [{"id":"A", "state":3, "delay":0}, {"id":"B", "state":2, "delay":0}], "expectedResult":6},
+      {"inputs": [{"id":"A", "state":0, "delay":0}, {"id":"B", "state":1, "delay":0}], "expectedResult":2}
+   ],
+   "resultInputId" : "AB"
+}

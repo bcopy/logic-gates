@@ -1,0 +1,8 @@
+
+puzzle 1 :
+
+
+puzzle 5 :  
+operator0 (minus)
+operator1( plus plus 1)
+operator2 (plus)

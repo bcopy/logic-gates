@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="shortcut icon" href="favicon.ico"-->
+
+    <title>TEDxCERN - Logic Gates</title>
+
+    <link rel='stylesheet' href='/webjars/bootstrap/3.0.3/css/bootstrap.min.css'>
+    
+    <style>
+    .scaling-svg-container {
+         position: relative; 
+         height: 0; 
+         width: 100%; 
+         padding: 0;
+         padding-bottom: 100%; 
+         /* override this inline for aspect ratio other than square */
+    }
+    .scaling-svg {
+         position: absolute; 
+         height: 100%; 
+         width: 100%; 
+         left: 0; 
+         top: 0;
+    }
+    .glowing {
+      animation: pulse 1.5s alternate infinite ;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0.4;
+      }
+    }
+    </style>
+  </head>
+  <body style="background-color: #1a1a1a;" onkeydown="keyEvent(event)">
+    <div id="svg-container" class="scaling-svg-container" 
+       style="padding-bottom: 56% /* 100% * 1080/1920 */">
+    </div>
+    <div id="output"></div>
+  
+    <script src="/webjars/d3js/3.5.6/d3.js" charset="utf-8"></script>
+    <script src="/js/polyfill-array-forEach.js"></script>
+    <script src="/js/nools.js"></script>
+
+    <script type="text/javascript">
+      var Puzzle = function (puzzleId) {
+          this.puzzleId = puzzleId;
+          this.svgDiagram = null;
+          this.operators = [];
+          this.currentTruthTableEntryIndex = 0;
+          this.truthTablePositionX = 0;
+          this.truthTablePositionY = 0;
+          this.truthTableRowHeight = 0; 
+          this.truthTableExpectedResultsPositions = [];
+          this.operatorsQueue = [];
+          this.puzzleDefinition = {};
+          this.successes = [];
+          this.noolsScript = "";
+        };
+        
+      Puzzle.prototype.cloneSvgGroup = function(selector, sibling){
+        var node = this.svgDiagram.select(selector).node();
+        return d3.select(sibling.parentNode.insertBefore(node.cloneNode(true),
+                sibling));
+      };
+      
+      Puzzle.prototype.assertNextTruthTableRow = function(noolsFlow, resultInputId, truthTable){
+          if(this.currentTruthTableEntryIndex < truthTable.length){
+               var tableEntry = truthTable[this.currentTruthTableEntryIndex];
+               var session = this.initNoolsSession(noolsFlow, resultInputId, tableEntry.expectedResult);
+               var Input = noolsFlow.getDefined("input");
+               var Operation = noolsFlow.getDefined("operation");
+           
+               this.operatorsQueue.forEach(function(operator,opIdx){
+                 session.assert(new Operation("operation"+(opIdx+1),operator));
+               });
+               
+               tableEntry.inputs.forEach(function(input,j){
+                  session.assert(new Input(input.id,input.state,input.delay));
+               });
+           
+               session.match();
+           }else{
+              console.log(this.successes);
+              var allSuccessful = true;
+              this.successes.forEach(function(success, idx){
+                 if(!success){
+                  allSuccessful = false;
+                 }
+              });
+              if(allSuccessful){
+                // Show success sequence
+                // Move on to next puzzle or display the congratulations message
+              }else{
+                // Show failure sequence
+                // Reset the puzzle
+              }
+           }
+       }
+       
+       Puzzle.prototype.initNoolsSession = function(flow, resultInputId, expectedResult){
+           var session = flow.getSession();
+           var Input = flow.getDefined("input");
+           var Operation = flow.getDefined("operation");
+           
+           var parentPuzzle = this;
+           session.on("assert", function(fact){
+                // If the new fact is an input, position it on the diagram
+                if(fact instanceof Input){
+                  // Find a state SVG group that matches the state
+                  var inputSvgGroup = parentPuzzle.cloneSvgGroup("#state-"+fact.state, currentPuzzle.svgDiagram.select("g#truth-table-header").node());
+                  var inputPath = parentPuzzle.svgDiagram.select("path#path-"+fact.id);
+                  inputSvgGroup.attr("id","input-"+fact.id);
+                  inputSvgGroup.style("opacity",95);
+                  inputSvgGroup.attr('transform', "translate("+getPathStartingPointAsString(inputSvgGroup.node(), inputPath.node())+")");
+                  // Start the transition
+                  inputSvgGroup.transition().delay(fact.order*2000+200).duration(2000)
+                             .attrTween("transform", translateAlong(inputPath.node(), inputSvgGroup.node()))
+                             .each("end", function(){
+                               if(fact.id == resultInputId){
+                                 // Store the evaluation result of the row for later
+                                 parentPuzzle.successes.push((fact.state==expectedResult));
+                                 
+                                 // Store the current position of the inputSvgGroup to move to the expected result location
+                                 var start = d3.transform(inputSvgGroup.attr("transform")),
+                                   startX = start.translate[0],
+                                   startY = start.translate[1];
+                                 
+                                 // Move the result to what it was expected to be in the truth table
+                                 var expectedEntry = parentPuzzle.svgDiagram.select("g#expected-result-"+parentPuzzle.currentTruthTableEntryIndex);
+                                 var dest = d3.transform(expectedEntry.attr("transform")),
+                                   destinationX = dest.translate[0] + 80,
+                                   destinationY = dest.translate[1];
+                               
+                                 inputSvgGroup.transition()   
+                                          .duration(1000)
+                                    .attrTween("transform", function(d, i, a) {
+                                      return function(t) {
+                                        return "translate(" + (startX + ((destinationX-startX)*t )) + "," + (startY + ((destinationY-startY)*t)) + ") scale("+(1 - 0.5*t)+")";
+                                      }
+                                     })
+                                   .each("end", function(){
+                                      // Trigger the evaluation of the next row
+                                      parentPuzzle.currentTruthTableEntryIndex++;
+                                      parentPuzzle.assertNextTruthTableRow(flow, parentPuzzle.puzzleDefinition.resultInputId,parentPuzzle.puzzleDefinition.truthTable);
+                                                });
+                             }
+                             });
+                }
+            });
+            
+            return session;
+       };
+       
+       Puzzle.prototype.toggleCurrentOperatorSlot = function(isActive){
+         d3.select("g#operator-slot-"+(this.operatorsQueue.length+1)).select("circle.operator-slot-halo").classed('glowing',isActive);
+         var color = '#d6412e';
+         if(isActive){
+           color = 'white';
+         }
+         d3.select("g#operator-slot-"+(this.operatorsQueue.length+1)).select("circle.operator-slot-center").style('fill',color);
+         d3.select("g#operator-slot-"+(this.operatorsQueue.length+1)).select("circle.operator-slot-rim").style('stroke',color);
+            
+       };
+       
+       Puzzle.prototype.drawTruthTable = function(){
+          var truthTableHeaderBoundingBox = this.svgDiagram.select('#truth-table-header').node().getBBox();
+          this.truthTablePositionX = truthTableHeaderBoundingBox.x;
+          this.truthTablePositionY = truthTableHeaderBoundingBox.y + truthTableHeaderBoundingBox.height+15;
+          this.truthTableRowHeight = truthTableHeaderBoundingBox.height+15;
+          
+          var parentPuzzle = this;
+          
+          this.puzzleDefinition.truthTable.forEach(function(truthTableRow, rowIndex){
+            truthTableRow.inputs.forEach(function(input, inputIndex){
+              // Create a new state symbol for each entry
+              var newTruthTableStateSymbol = parentPuzzle.cloneSvgGroup("#state-"+input.state, parentPuzzle.svgDiagram.select("g#truth-table-header").node());
+              // Position the symbol
+              newTruthTableStateSymbol.attr('transform', "translate("+(parentPuzzle.truthTablePositionX+(inputIndex*95))+","+(parentPuzzle.truthTablePositionY+(rowIndex*parentPuzzle.truthTableRowHeight))+") scale(0.5)");
+            });
+            var newTruthTableExpectedResult = parentPuzzle.cloneSvgGroup("#state-"+truthTableRow.expectedResult, parentPuzzle.svgDiagram.select("g#truth-table-header").node());
+            newTruthTableExpectedResult.attr('id', "expected-result-"+rowIndex);
+            parentPuzzle.truthTableExpectedResultsPositions.push({"x": (parentPuzzle.truthTablePositionX+((truthTableRow.inputs.length)*95)+40), "y": (parentPuzzle.truthTablePositionY+(rowIndex*parentPuzzle.truthTableRowHeight))});
+            newTruthTableExpectedResult.attr('transform', "translate("+parentPuzzle.truthTableExpectedResultsPositions[parentPuzzle.truthTableExpectedResultsPositions.length-1].x+","+parentPuzzle.truthTableExpectedResultsPositions[parentPuzzle.truthTableExpectedResultsPositions.length-1].y+") scale(0.5)");
+          });
+       }
+
+       var currentPuzzle;
+      
+      function getPathStartingPointAsString(groupNode, pathNode){
+        return (pathNode.getPointAtLength(0).x- groupNode.getBBox().width/2)+","+(pathNode.getPointAtLength(0).y-(groupNode.getBBox().height+20));
+      }
+      
+      function translateAlong(path, groupNode) {
+          var l = path.getTotalLength();
+          
+          return function(d, i, a) {
+            return function(t) {
+              var p = path.getPointAtLength(t * l);
+              return "translate(" + (p.x - groupNode.getBBox().width/2) + "," + (p.y-(groupNode.getBBox().height+20)) + ")";
+            };
+          };
+       }
+       function keyEvent(event) {
+          // Only accept keystrokes if we have a current puzzle
+          if(! currentPuzzle ) return; 
+          
+          
+          var key = event.keyCode || event.which;
+          var keychar = String.fromCharCode(key);
+
+          // operators are X, Y and Z
+          var operatorIdx = (key - 88);
+          
+          if( currentPuzzle.puzzleDefinition.operations.length > currentPuzzle.operatorsQueue.length && (operatorIdx >= 0) && (operatorIdx < currentPuzzle.operators.length)){
+            
+            // Deactivate the first operator slot
+            currentPuzzle.toggleCurrentOperatorSlot(false);
+            var operatorSlotGroup = currentPuzzle.svgDiagram.select("g#operator-slot-"+(currentPuzzle.operatorsQueue.length+1));
+            var operatorSlotTrnsf = d3.transform(operatorSlotGroup.attr("transform")),
+                                   operatorSlotNodeX = operatorSlotTrnsf.translate[0],
+                                   operatorSlotNodeY = operatorSlotTrnsf.translate[1];
+            var operatorSlotHeight = operatorSlotGroup.node().getBBox().height;
+            var operatorSlotWidth = operatorSlotGroup.node().getBBox().width-5;
+            
+            var newOperatorNode = currentPuzzle.cloneSvgGroup("#operator-"+(operatorIdx), operatorSlotGroup.node().nextSibling);
+            var newOperatorNodeHeight = newOperatorNode.node().getBBox().height;
+            var newOperatorNodeWidth = newOperatorNode.node().getBBox().width;
+            // Some operator shapes need an offset to appear centered
+            var operatorNodeOffsetY = newOperatorNode.attr("offset-y");
+            
+            var newOperatorNodeOffsetX = (operatorSlotWidth - newOperatorNodeWidth)/2;
+            var newOperatorNodeOffsetY = ((operatorSlotHeight - newOperatorNodeHeight)/2) + Number(operatorNodeOffsetY);
+            
+            newOperatorNode.attr('transform', 'translate('+(operatorSlotNodeX+newOperatorNodeOffsetX)+','+(operatorSlotNodeY+newOperatorNodeOffsetY)+')');
+            
+            currentPuzzle.operatorsQueue.push(currentPuzzle.operators[operatorIdx]);
+            
+            currentPuzzle.toggleCurrentOperatorSlot(true);
+          }
+          
+          if( currentPuzzle.operatorsQueue.length >= currentPuzzle.puzzleDefinition.operations.length){
+              currentPuzzle.toggleCurrentOperatorSlot(false);
+              // Trigger the evaluation
+              var flow = nools.compile(currentPuzzle.noolsScript, {name: "simple"});
+              // Fire the first evaluation
+              currentPuzzle.assertNextTruthTableRow(flow, currentPuzzle.puzzleDefinition.resultInputId,currentPuzzle.puzzleDefinition.truthTable);
+          }
+        }
+
+        var puzzleId = "puzzle5";
+        
+        currentPuzzle = new Puzzle(puzzleId);
+        
+        d3.text("puzzles/"+puzzleId+".nools").get(function(error, data){ 
+          if(!data){
+            console.log("Could not load NOOLS script for "+puzzleId+" : ",error);
+          }
+          else {
+            currentPuzzle.noolsScript = data;
+          }
+        });
+        
+        d3.json("puzzles/"+puzzleId+".json").get(function(error, data){ 
+          if(!data){
+            console.log("Could not load Puzzle definition for "+puzzleId+" : ",error);
+          }
+          else {
+              currentPuzzle.puzzleDefinition = data; 
+              currentPuzzle.puzzleDefinition.operators.forEach(function(d,i){
+                 currentPuzzle.operators.push(eval(d));
+              });
+          }
+        });
+        
+        d3.xml("puzzles/"+puzzleId+".svg", function(xml) {
+          document.getElementById('svg-container').appendChild(xml.documentElement);
+        
+          currentPuzzle.svgDiagram = d3.select('#svg-container').select("svg");
+          currentPuzzle.svgDiagram.classed("scaling-svg",true);
+          
+          // Draw the puzzle truth table
+          currentPuzzle.drawTruthTable();
+           
+          currentPuzzle.toggleCurrentOperatorSlot(true);
+        });
+        
+    </script>
+  </body>
+</html>
+
