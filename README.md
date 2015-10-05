@@ -1,4 +1,4 @@
-# logic-gates
+# Logic Gates
 
 An interactive browser-based logic game.
 Using SVG, D3 and the excellent "nools" Javascript Rete engine library, this game helps teach logic gates and how 
