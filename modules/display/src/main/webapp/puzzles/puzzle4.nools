@@ -15,13 +15,33 @@
              this.perform = operationFn;
           }
         }
-        rule RuleAB {
+        rule RuleA {
             when {
                 a : Input a.id == "A";
-                b : Input b.id == "B";
                 o : Operation o.id == "operation1";
             }
             then {
-                assert(new Input("AB", o.perform(a,b), 1 ));
+                assert(new Input("A2", o.perform(a), 1 ));
             }
         }
+        rule RuleB {
+            when {
+                b : Input b.id == "B";
+                o : Operation o.id == "operation2"
+            }
+            then {
+                assert(new Input("B2", o.perform(b), 1 ));
+            }
+        }
+        rule RuleAB {
+            when {
+                a : Input a.id == "A2";
+                b : Input b.id == "B2";
+                o : Operation o.id == "operation3";
+            }
+            then {
+                assert(new Input("AB", o.perform(a,b), 2  ));
+            }
+        }
+        
+

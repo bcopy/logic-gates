@@ -1,8 +1,38 @@
 
 puzzle 1 :
+operator1 (circle)
+operator2 (triangle)
+
+puzzle 2 :
+operator2 (triangle)
 
 
-puzzle 5 :  
+puzzle 3 :
+operator2 (circle)
+
+puzzle 4 :
+operator2 (triangle)
+operator1 (circle)
+operator0 (square)
+
+
+puzzle 5 :
 operator0 (minus)
-operator1( plus plus 1)
+operator1( minus)
 operator2 (plus)
+
+
+puzzle 6 TDB :
+
+puzzle 7 TDB :
+
+
+
+puzzle 8 :  
+operator0 (minus)
+operator1 (minus)
+operator2 (plus)
+
+
+puzzle 9 TDB :
+puzzle 10 TDB :

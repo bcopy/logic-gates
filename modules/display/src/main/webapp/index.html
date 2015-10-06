@@ -66,6 +66,8 @@
           this.puzzleDefinition = {};
           this.successes = [];
           this.noolsScript = "";
+          this.acceptingInput = true;
+          this.acceptMovingOn = false;
         };
         
       Puzzle.prototype.cloneSvgGroup = function(selector, sibling){
@@ -100,10 +102,17 @@
               });
               if(allSuccessful){
                 // Show success sequence
+                var parentPuzzle = this;
+                setTimeout(function(){ parentPuzzle.svgDiagram.select("g#completed-success").style("display","inline"); }, 500);
                 // Move on to next puzzle or display the congratulations message
+                setTimeout(function(){ parentPuzzle.svgDiagram.select("g#completed-success").style("opacity",0.7); }, 3000);
+                this.acceptMovingOn = true;
               }else{
                 // Show failure sequence
+                this.svgDiagram.select("g#completed-failure").style("display","inline");
                 // Reset the puzzle
+                setTimeout(function(){ document.location = "http://localhost:8080"; }, 3000);
+                
               }
            }
        }
@@ -218,6 +227,19 @@
           
           var key = event.keyCode || event.which;
           var keychar = String.fromCharCode(key);
+          
+          if(currentPuzzle.acceptMovingOn){
+            currentPuzzle.acceptMovingOn = false;
+            if(currentPuzzle.puzzleId == 10){
+              // Redirect to victory sequence
+              alert("done !!!");
+            }else{
+              localStorage.setItem("currentPuzzleId", parseInt(currentPuzzle.puzzleId)+1);
+              document.location = "http://localhost:8080";
+            }
+          }
+          
+          
 
           // operators are X, Y and Z
           var operatorIdx = (key - 88);
@@ -249,8 +271,9 @@
             currentPuzzle.toggleCurrentOperatorSlot(true);
           }
           
-          if( currentPuzzle.operatorsQueue.length >= currentPuzzle.puzzleDefinition.operations.length){
+          if(currentPuzzle.acceptingInput && currentPuzzle.operatorsQueue.length >= currentPuzzle.puzzleDefinition.operations.length){
               currentPuzzle.toggleCurrentOperatorSlot(false);
+              currentPuzzle.acceptingInput = false;
               // Trigger the evaluation
               var flow = nools.compile(currentPuzzle.noolsScript, {name: "simple"});
               // Fire the first evaluation
@@ -258,22 +281,30 @@
           }
         }
 
-        var puzzleId = "puzzle5";
+        var puzzleIdToLoad = 1;
+        if(localStorage.getItem("currentPuzzleId")){
+          // Get the last known puzzle ID to load it
+          puzzleIdToLoad = localStorage.getItem("currentPuzzleId");
+        }else{
+          // Initialize the puzzle ID
+          localStorage.setItem("currentPuzzleId", puzzleIdToLoad);
+        }
+        var puzzleName = "puzzle"+ puzzleIdToLoad;
         
-        currentPuzzle = new Puzzle(puzzleId);
+        currentPuzzle = new Puzzle(puzzleIdToLoad);
         
-        d3.text("puzzles/"+puzzleId+".nools").get(function(error, data){ 
-          if(!data){
-            console.log("Could not load NOOLS script for "+puzzleId+" : ",error);
+        d3.text("puzzles/"+puzzleName+".nools").get(function(error, data){ 
+          if(!data || error){
+            console.log("Could not load NOOLS script for "+puzzleName+" : ",error);
           }
           else {
             currentPuzzle.noolsScript = data;
           }
         });
         
-        d3.json("puzzles/"+puzzleId+".json").get(function(error, data){ 
-          if(!data){
-            console.log("Could not load Puzzle definition for "+puzzleId+" : ",error);
+        d3.json("puzzles/"+puzzleName+".json").get(function(error, data){ 
+          if(!data || error){
+            console.log("Could not load Puzzle definition for "+puzzleName+" : ",error);
           }
           else {
               currentPuzzle.puzzleDefinition = data; 
@@ -283,7 +314,7 @@
           }
         });
         
-        d3.xml("puzzles/"+puzzleId+".svg", function(xml) {
+        d3.xml("puzzles/"+puzzleName+".svg", function(xml) {
           document.getElementById('svg-container').appendChild(xml.documentElement);
         
           currentPuzzle.svgDiagram = d3.select('#svg-container').select("svg");

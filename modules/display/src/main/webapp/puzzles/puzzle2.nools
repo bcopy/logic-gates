@@ -25,3 +25,4 @@
                 assert(new Input("AB", o.perform(a,b), 1 ));
             }
         }
+        

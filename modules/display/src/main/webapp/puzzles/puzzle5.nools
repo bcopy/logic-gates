@@ -25,24 +25,14 @@
                 assert(new Input("AB", o.perform(a,b), 1 ));
             }
         }
-        rule RuleCandD {
+        rule RuleABC {
             when {
-                c : Input c.id == "C";
-                d : Input d.id == "D";
-                o : Operation o.id == "operation2";
+                c  : Input c.id == "C";
+                ab :  Input ab.id == "AB";
+                o : Operation o.id == "operation2"
             }
             then {
-                assert(new Input("CD", o.perform(c,d), 2 ));
-            }
-        }
-        rule RuleABCD {
-            when {
-                ab  : Input ab.id == "AB";
-                cd :  Input cd.id == "CD";
-                o : Operation o.id == "operation3"
-            }
-            then {
-                assert(new Input("ABCD", o.perform(ab,cd), 3 ));
+                assert(new Input("ABC", o.perform(c,ab), 2 ));
             }
         }
 

@@ -1,16 +1,16 @@
 {
-   "title" : "Logic 101",
-   "subtitle" : "Here we go...",
-   "operations" : ["operation1", "operation2"],
+   "title" : "Come down to the lab",
+   "subtitle" : "and see what's on the slab...",
+   "operations" : ["operation1"],
    "operators": [
-       "(function(input1,input2){ return input1.state && input2.state; } )",
-       "(function(input1,input2){  return input1.state || input2.state; } )", 
-       "(function(input1,input2){  return false; } )"
+       "(function(input1,input2){ return 0; })",
+       "(function(input1,input2){ return Math.abs(parseInt(input1.state) - parseInt(input2.state)); } )", 
+       "(function(input1,input2){ return Math.min(input1.state + input2.state, 4); } )"
    ],
    "truthTable": [
-      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":false, "delay":1}], "expectedResult":false},
-      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":false, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":true},
-      {"inputs": [{"id":"A", "state":false, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":true}
+      {"inputs": [{"id":"A", "state":4, "delay":0} , {"id":"B", "state":2, "delay":0}], "expectedResult":2},
+      {"inputs": [{"id":"A", "state":3, "delay":0} , {"id":"B", "state":1, "delay":0}], "expectedResult":2},
+      {"inputs": [{"id":"A", "state":1, "delay":0}, {"id":"B", "state":2, "delay":0} ], "expectedResult":1}
    ],
-   "resultInputId" : "ABC"
+   "resultInputId" : "AB"
 }

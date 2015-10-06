@@ -15,7 +15,7 @@
              this.perform = operationFn;
           }
         }
-        rule RuleAB {
+        rule RuleAandB {
             when {
                 a : Input a.id == "A";
                 b : Input b.id == "B";
@@ -25,3 +25,24 @@
                 assert(new Input("AB", o.perform(a,b), 1 ));
             }
         }
+        rule RuleCandD {
+            when {
+                c : Input c.id == "C";
+                d : Input d.id == "D";
+                o : Operation o.id == "operation2";
+            }
+            then {
+                assert(new Input("CD", o.perform(c,d), 2 ));
+            }
+        }
+        rule RuleABCD {
+            when {
+                ab  : Input ab.id == "AB";
+                cd :  Input cd.id == "CD";
+                o : Operation o.id == "operation3"
+            }
+            then {
+                assert(new Input("ABCD", o.perform(ab,cd), 3 ));
+            }
+        }
+
