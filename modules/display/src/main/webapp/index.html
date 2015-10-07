@@ -103,15 +103,14 @@
               if(allSuccessful){
                 // Show success sequence
                 var parentPuzzle = this;
-                setTimeout(function(){ parentPuzzle.svgDiagram.select("g#completed-success").style("display","inline"); }, 500);
-                // Move on to next puzzle or display the congratulations message
-                setTimeout(function(){ parentPuzzle.svgDiagram.select("g#completed-success").style("opacity",0.7); }, 3000);
+                setTimeout(function(){ parentPuzzle.svgDiagram.select("g#completed-success").style("display","inline").style("opacity",0.9); }, 500);
+                // Allow to move on to the next puzzle 
                 this.acceptMovingOn = true;
               }else{
                 // Show failure sequence
                 this.svgDiagram.select("g#completed-failure").style("display","inline");
                 // Reset the puzzle
-                setTimeout(function(){ document.location = "http://localhost:8080"; }, 3000);
+                setTimeout(function(){ document.location.reload(); }, 3000);
                 
               }
            }
@@ -235,7 +234,8 @@
               alert("done !!!");
             }else{
               localStorage.setItem("currentPuzzleId", parseInt(currentPuzzle.puzzleId)+1);
-              document.location = "http://localhost:8080";
+              localStorage.setItem("playPuzzleIntro", true);
+              document.location.reload();
             }
           }
           
@@ -288,6 +288,7 @@
         }else{
           // Initialize the puzzle ID
           localStorage.setItem("currentPuzzleId", puzzleIdToLoad);
+          localStorage.setItem("playPuzzleIntro", true);
         }
         var puzzleName = "puzzle"+ puzzleIdToLoad;
         
