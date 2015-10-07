@@ -227,6 +227,16 @@
           var key = event.keyCode || event.which;
           var keychar = String.fromCharCode(key);
           
+          if(keychar == 'R'){
+            document.location.reload();
+          }
+          
+          if(keychar == 'S'){
+            localStorage.setItem("currentPuzzleId", 1);
+            localStorage.setItem("playPuzzleIntro", true);
+            document.location.reload();
+          }
+          
           if(currentPuzzle.acceptMovingOn){
             currentPuzzle.acceptMovingOn = false;
             if(currentPuzzle.puzzleId == 10){
@@ -238,8 +248,6 @@
               document.location.reload();
             }
           }
-          
-          
 
           // operators are X, Y and Z
           var operatorIdx = (key - 88);
