@@ -1,38 +1,43 @@
 
-puzzle 1 :
+puzzle 1 (numbers) :
 operator1 (circle)
 operator2 (triangle)
 
-puzzle 2 :
+puzzle 2 (logic) :
 operator2 (triangle)
 
 
-puzzle 3 :
+puzzle 3 (beakers):
 operator2 (circle)
 
-puzzle 4 :
+puzzle 4 (numbers) :
 operator2 (triangle)
 operator1 (circle)
 operator0 (square)
 
 
-puzzle 5 :
+puzzle 5 (logic):
 operator0 (minus)
 operator1( minus)
 operator2 (plus)
 
 
-puzzle 6 TDB :
+puzzle 6 (pies) :
+operator1 (+3)
+operator1 (+3)
+operator2 (minus)
 
-puzzle 7 TDB :
+
+puzzle 7 (numbers) :
 
 
 
-puzzle 8 :  
+puzzle 8  (beakers):
 operator0 (minus)
 operator1 (minus)
 operator2 (plus)
 
 
-puzzle 9 TDB :
-puzzle 10 TDB :
+puzzle 9 (logic) :
+
+puzzle 10 (pies) :

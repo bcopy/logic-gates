@@ -1,15 +1,16 @@
 {
-   "title" : "Let's begin...",
-   "subtitle" : "with arithmetics 101...",
-   "operations" : ["operation1", "operation2"],
+   "title" : "Pies in the sky",
+   "subtitle" : "but totally accessible !",
+   "operations" : ["operation1", "operation2", "operation3"],
    "operators": [
-       "(function(input1){ return input1.state + 1; } )",
-       "(function(input1){ return input1.state * 2; } )",
-       "(function(input1){ return input1.state - 1; } )"
+       "(function(input1){ var result = input1.state - 1; if (result < 0) result = 7; return result; } )",
+       "(function(input1){ var result = input1.state + 3; return (result%8);  } )",
+       "(function(input1){ var result = input1.state + 1; return (result%8);  } )"
    ],
    "truthTable": [
-      {"inputs": [{"id":"A", "state":3, "delay":0}], "expectedResult":5},
-      {"inputs": [{"id":"A", "state":2, "delay":0}], "expectedResult":3}
+      {"inputs": [{"id":"A", "state":0, "delay":0}], "expectedResult":5},
+      {"inputs": [{"id":"A", "state":4, "delay":0}], "expectedResult":1},
+      {"inputs": [{"id":"A", "state":6, "delay":0}], "expectedResult":3}
    ],
-   "resultInputId" : "A3"
+   "resultInputId" : "A4"
 }
