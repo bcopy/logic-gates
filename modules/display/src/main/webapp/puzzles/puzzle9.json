@@ -3,7 +3,7 @@
    "subtitle" : "I met more complications...",
    "operations" : ["operation1", "operation2"],
    "operators": [
-       "(function(input1,input2){ return ((!input1.state) && input2.state) && (input1.state && (!input2.state) ); } )", 
+       "(function(input1,input2){ return ((!input1.state) && input2.state) || (input1.state && (!input2.state) ); } )", 
        "(function(input1,input2){ return input1.state && input2.state; } )",
        "(function(input1,input2){ return input1.state || input2.state; } )"
    ],
