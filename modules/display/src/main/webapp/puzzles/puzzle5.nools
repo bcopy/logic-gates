@@ -32,7 +32,7 @@
                 o : Operation o.id == "operation2"
             }
             then {
-                assert(new Input("ABC", o.perform(c,ab), 2 ));
+                assert(new Input("ABC", o.perform(ab,c), 2 ));
             }
         }
 

@@ -17,19 +17,19 @@ operator0 (square)
 
 
 puzzle 5 (logic):
-operator0 (minus)
-operator1( minus)
-operator2 (plus)
+operator2 (xor) triangle
+operator0 (and) square
 
 
 puzzle 6 (pies) :
-operator1 (+3)
-operator1 (+3)
-operator2 (minus)
+operator1 (+3) circle
+operator1 (+3) circle
+operator0 (minus) square
 
 
 puzzle 7 (numbers) :
-
+operator1 (*) circle
+operator2 (-) triangle   
 
 
 puzzle 8  (beakers):
@@ -39,5 +39,12 @@ operator2 (plus)
 
 
 puzzle 9 (logic) :
+operator0 (Xor)
+operator1 (and)
+
 
 puzzle 10 (pies) :
+operator0 (plus)
+operator1 (minus)
+operator2 (minus)
+
