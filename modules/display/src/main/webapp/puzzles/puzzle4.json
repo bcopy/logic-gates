@@ -1,6 +1,6 @@
 {
-   "title" : "More numbers",
-   "subtitle" : "A little bit of this...",
+   "title" : "More numbers...",
+   "subtitle" : "Need a pen and paper ?",
    "operations" : ["operation1", "operation2", "operation3"],
    "operators": [
        "(function(input1,input2){ return input1.state + (input2?input2.state:0); } )",

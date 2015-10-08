@@ -1,6 +1,6 @@
 {
-   "title" : "Numbers, numbers, more numbers",
-   "subtitle" : "and different operators",
+   "title" : "Exclusive logic...",
+   "subtitle" : "available now for a limited time !",
    "operations" : ["operation1", "operation2"],
    "operators": [
        "(function(input1,input2){ return input1.state && input2.state; } )",

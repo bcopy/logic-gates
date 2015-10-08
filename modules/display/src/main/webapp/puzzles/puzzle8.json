@@ -1,6 +1,6 @@
 {
-   "title" : "In the lab",
-   "subtitle" : "Mind those beakers...",
+   "title" : "Back in the lab...",
+   "subtitle" : "Mind those beakers ...",
    "operations" : ["operation1", "operation2", "operation3"],
    "operators": [
        "(function(input1,input2){ return Math.abs(parseInt(input1.state) - parseInt(input2.state)); } )",
@@ -8,9 +8,9 @@
        "(function(input1,input2){ return Math.min(input1.state + input2.state, 4); } )"
    ],
    "truthTable": [
-      {"inputs": [{"id":"A", "state":0, "delay":0} , {"id":"B", "state":1, "delay":0} , {"id":"C", "state":0, "delay":1}, {"id":"D", "state":1, "delay":1}], "expectedResult":2},
-      {"inputs": [{"id":"A", "state":2, "delay":0} , {"id":"B", "state":1, "delay":0}, {"id":"C", "state":1, "delay":1} , {"id":"D", "state":2, "delay":1} ], "expectedResult":2},
-      {"inputs": [{"id":"A", "state":4, "delay":0}, {"id":"B", "state":2, "delay":0} , {"id":"C", "state":0, "delay":1} , {"id":"D", "state":1, "delay":1} ], "expectedResult":3}
+      {"inputs": [{"id":"A", "state":0, "delay":0} , {"id":"B", "state":1, "delay":0} , {"id":"C", "state":0, "delay":2},  {"id":"D", "state":1, "delay":2}], "expectedResult":2},
+      {"inputs": [{"id":"A", "state":2, "delay":0} , {"id":"B", "state":1, "delay":0}, {"id":"C", "state":1,  "delay":2} , {"id":"D", "state":2, "delay":2} ], "expectedResult":2},
+      {"inputs": [{"id":"A", "state":4, "delay":0}, {"id":"B", "state":2, "delay":0} , {"id":"C", "state":0,  "delay":2} , {"id":"D", "state":1, "delay":2} ], "expectedResult":3}
    ],
    "resultInputId" : "ABCD"
 }

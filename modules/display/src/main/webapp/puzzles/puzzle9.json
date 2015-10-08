@@ -1,6 +1,6 @@
 {
-   "title" : "On the way to the top",
-   "subtitle" : "I met more complications...",
+   "title" : "On my way to the top",
+   "subtitle" : "I was met with complications...",
    "operations" : ["operation1", "operation2"],
    "operators": [
        "(function(input1,input2){ return ((!input1.state) && input2.state) || (input1.state && (!input2.state) ); } )", 

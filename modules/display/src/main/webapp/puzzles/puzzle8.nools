@@ -32,7 +32,7 @@
                 o : Operation o.id == "operation2";
             }
             then {
-                assert(new Input("CD", o.perform(c,d), 2 ));
+                assert(new Input("CD", o.perform(c,d), 3 ));
             }
         }
         rule RuleABCD {
@@ -42,7 +42,7 @@
                 o : Operation o.id == "operation3"
             }
             then {
-                assert(new Input("ABCD", o.perform(ab,cd), 3 ));
+                assert(new Input("ABCD", o.perform(ab,cd), 4 ));
             }
         }
 

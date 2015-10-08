@@ -1,6 +1,6 @@
 {
-   "title" : "Come down to the lab",
-   "subtitle" : "and see what's on the slab...",
+   "title" : "Come down to the lab...",
+   "subtitle" : "and see what's on the slab",
    "operations" : ["operation1"],
    "operators": [
        "(function(input1,input2){ return 0; })",

@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.45254834"
-     inkscape:cx="320.19609"
+     inkscape:cx="56.135901"
      inkscape:cy="802.87725"
      inkscape:document-units="px"
-     inkscape:current-layer="diagram"
+     inkscape:current-layer="completed-success"
      showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1023"
@@ -1259,32 +1259,32 @@
        inkscape:label="#path3303" />
     <text
        xml:space="preserve"
-       style="font-size:50.87456894px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#fffcfc;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="804.96191"
-       y="299.29202"
+       style="font-size:57.21056366px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#fffcfc;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="773.67023"
+       y="301.59842"
        id="text4144"
        sodipodi:linespacing="130%"><tspan
          sodipodi:role="line"
-         x="804.96191"
-         y="299.29202"
+         x="773.67023"
+         y="301.59842"
          id="tspan4146"><tspan
-           x="804.96191"
-           y="299.29202"
+           x="773.67023"
+           y="301.59842"
            id="tspan4148">CONGRATULATIONS</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:50.87456894px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#fffcfc;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="900.47589"
-       y="979.29205"
+       style="font-size:65.78923798px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#fffcfc;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="854.81793"
+       y="983.40668"
        id="success-text"
        sodipodi:linespacing="130%"
        inkscape:label="#text4138"><tspan
          sodipodi:role="line"
-         x="900.47589"
-         y="979.29205"
+         x="854.81793"
+         y="983.40668"
          id="tspan4140"><tspan
-           x="900.47589"
-           y="979.29205"
+           x="854.81793"
+           y="983.40668"
            id="tspan4142">Moving on...</tspan></tspan></text>
   </g>
   <g
