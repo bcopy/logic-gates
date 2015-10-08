@@ -11,7 +11,7 @@
       {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":false, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":true},
       {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":false},
       {"inputs": [{"id":"A", "state":false, "delay":0}, {"id":"B", "state":false, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":false},
-      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":false}
+      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":false, "delay":1}], "expectedResult":false}
    ],
    "resultInputId" : "ABC"
 }
