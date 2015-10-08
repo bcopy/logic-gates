@@ -239,8 +239,7 @@
             currentPuzzle.acceptMovingOn = false;
             if(currentPuzzle.puzzleId == 10){
               // Redirect to victory sequence
-              alert("done !!!");
-              // http://jsfiddle.net/AceJJ/1351/
+              document.location = "finale.html";
             }else{
               localStorage.setItem("currentPuzzleId", parseInt(currentPuzzle.puzzleId)+1);
               localStorage.setItem("playPuzzleIntro", true);
