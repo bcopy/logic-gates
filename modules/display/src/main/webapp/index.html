@@ -40,7 +40,7 @@
     }
     </style>
   </head>
-  <body style="background-color: #1a1a1a;" onkeydown="keyEvent(event)">
+  <body style="background-color: black;" onkeydown="keyEvent(event)">
     <div id="svg-container" class="scaling-svg-container" 
        style="padding-bottom: 56% /* 100% * 1080/1920 */">
     </div>
@@ -323,14 +323,55 @@
         
         d3.xml("puzzles/"+puzzleName+".svg", function(xml) {
           document.getElementById('svg-container').appendChild(xml.documentElement);
-        
           currentPuzzle.svgDiagram = d3.select('#svg-container').select("svg");
           currentPuzzle.svgDiagram.classed("scaling-svg",true);
           
-          // Draw the puzzle truth table
-          currentPuzzle.drawTruthTable();
-           
-          currentPuzzle.toggleCurrentOperatorSlot(true);
+          if(localStorage.getItem("playPuzzleIntro")=="true"){
+             // Add a new layer to draw text on
+             var introLayer = currentPuzzle.svgDiagram.append("g");
+             introLayer.append("rect").attr('x',0).attr('y',0).attr('width',1920).attr('height',1080).attr('fill','black');
+             // Draw the subtitle
+             introLayer.append("text").attr('x',200).attr('y',400).style('opacity',0.1).text(currentPuzzle.puzzleDefinition.title).attr("font-family", "sans-serif")
+                 .attr("font-size", "120px")
+                 .attr("fill", "white")
+                       .transition()   
+                       .duration(1000)
+                       .attrTween("transform", function(d, i, a) {
+                         return function(t) { return "translate(0," + (-50*t) + ")"; }
+                        })
+                       .style('opacity', 1)
+                       .each("end", function(){
+                       
+                          introLayer.append("text").attr('x',300).attr('y',600).style('opacity',0.2).text(currentPuzzle.puzzleDefinition.subtitle).attr("font-family", "sans-serif")
+                                         .attr("font-size", "60px")
+                                         .attr("fill", "grey")
+                                               .transition()   
+                                               .duration(1000)
+                                               .attrTween("transform", function(d, i, a) {
+                                                 return function(t) { return "translate(0," + (-150*t) + ")"; }
+                                                })
+                                               .style('opacity', 1)
+                                               .transition()
+                                               .delay(2000)
+                                               .each("end", function(){
+                                                  introLayer.transition().duration(500).attrTween("transform", function(d, i, a) {
+                                                 return function(t) { return "translate(" + (-300*t) + ",0)"; }
+                                                }).style('opacity', 0).each("end",function(){
+                                                      localStorage.setItem("playPuzzleIntro",false);
+                                                      // Draw the puzzle truth table
+                                                      currentPuzzle.drawTruthTable();
+                                                      currentPuzzle.toggleCurrentOperatorSlot(true);
+                                                  });
+                                               });
+                          
+                       });
+          }else{
+                currentPuzzle.drawTruthTable();
+                currentPuzzle.toggleCurrentOperatorSlot(true);
+          }
+        
+          
+          
         });
         
     </script>

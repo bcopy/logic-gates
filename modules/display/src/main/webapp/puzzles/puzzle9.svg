@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.45254834"
-     inkscape:cx="680.78061"
+     inkscape:cx="416.72042"
      inkscape:cy="914.99705"
      inkscape:document-units="px"
      inkscape:current-layer="completed-success"
@@ -1063,7 +1063,7 @@
      inkscape:groupmode="layer"
      id="completed-success"
      inkscape:label="completed-success"
-     style="display:inline">
+     style="display:none">
     <path
        transform="matrix(2.9645584,0,0,2.9645584,-1700.1689,-691.14942)"
        d="m 1085.9182,436.3064 a 156.1385,156.1385 0 1 1 -312.27704,0 156.1385,156.1385 0 1 1 312.27704,0 z"
