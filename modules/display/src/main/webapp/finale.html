@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
     <meta name="description" content="">
     <meta name="author" content="">
     <!--link rel="shortcut icon" href="favicon.ico"-->
@@ -15,15 +15,16 @@
   </head>
   <body style="margin:0px;background-color: black;" onkeydown="keyEvent(event)">
  
-    <div id="viewport" style="width: 1920px; height: 1080px;">
-      <canvas id="background" width="1920" height="1080" 
-   style="position: absolute; left: 0; top: 0; z-index: 1;opacity:1"></canvas>
- <canvas id="scene" width="1920" height="1080"
-   style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+    <div id="viewport" style="text-align:center; width: 1320px; height: 742px;">
+      <canvas id="background" width="1320" height="742" 
+   style="position: absolute;margin:auto; left: 0; top: 0;bottom:0;right:0; z-index: 1;opacity:1"></canvas>
+ <canvas id="scene" width="1320" height="742"
+   style="position: absolute;margin:auto; left: 0; top: 0;bottom:0;right:0; z-index: 0;"></canvas>
     </div>
     
     
     <script type="text/javascript">
+    
         function keyEvent(event) {
           var key = event.keyCode || event.which;
           var keychar = String.fromCharCode(key);
@@ -173,7 +174,14 @@ Particle.prototype.recalcCartesianProjection = function() {
 
 
 $(function() {
-            var img = new Image();  
+var canvas = document.getElementById('background');
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = window.innerHeight * 0.9;
+        canvas = document.getElementById('scene');
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = window.innerHeight * 0.9;
+        
+        var img = new Image();  
     
             var ctx = document.getElementById('background').getContext('2d');  
             var img = new Image();  
