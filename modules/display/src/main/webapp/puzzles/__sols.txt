@@ -28,23 +28,23 @@ operator0 (minus) square
 
 
 puzzle 7 (numbers) :
-operator1 (*) circle
-operator2 (-) triangle   
+operator2 (*) triangle   
+operator1 (-) circle
 
 
 puzzle 8  (beakers):
-operator0 (minus)
-operator1 (minus)
-operator2 (plus)
+operator0 (square)
+operator1 (square)
+operator2 (triangle)
 
 
 puzzle 9 (logic) :
-operator0 (Xor)
-operator1 (and)
+operator0 (square) (Xor)
+operator1 (circle) (and)
 
 
 puzzle 10 (pies) :
-operator0 (plus)
-operator1 (minus)
-operator2 (minus)
+operator0 square (plus)
+operator1 circle (minus)
+operator2 circle (minus)
 

@@ -1,11 +1,11 @@
 {
-   "title" : "And now for the finale : Positions and vectors",
-   "subtitle" : "(For your own sanity, get a pen and paper)",
+   "title" : "Last one: Positions and vectors",
+   "subtitle" : "For your own sanity, get a pen and paper",
    "operations" : ["operation1", "operation2", "operation3"],
    "operators": [
-       "(function(input1,input2){ var result = input1.state + input2.state; console.log('+',input1.state, input2.state, result%8); return (result%8);  } )",
-       "(function(input1,input2){ var result = input1.state - (input2.state<=4?input2.state:(8-input2.state)); if (result < 0) { result = 8+result}; console.log('-',input1.state, input2.state, result%8); return (result%8);  } )",
-       "(function(input1,input2){ var result = input1.state + 4; console.log('+4',input1.state, result%8); return (result%8);   } )"
+       "(function(input1,input2){ var result = input1.state + input2.state; return (result%8);  } )",
+       "(function(input1,input2){ var result = input1.state - (input2.state<=4?input2.state:(8-input2.state)); if (result < 0) { result = 8+result}; return (result%8);  } )",
+       "(function(input1,input2){ var result = input1.state + 4; return (result%8);   } )"
    ],
    "truthTable": [                                                                                                                                       
       {"inputs": [{"id":"A", "state":0, "delay":0} , {"id":"B", "state":1, "delay":0} , {"id":"C", "state":3, "delay":2},  {"id":"D", "state":1, "delay":2}], "expectedResult":7},
