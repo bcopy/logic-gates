@@ -1,0 +1,16 @@
+{
+   "title" : "Ok, you got it..",
+   "subtitle" : "But can you do it with logic ?",
+   "operations" : ["operation1"],
+   "operators": [
+       "(function(input1,input2){ return input1.state && input2.state; } )",
+       "(function(input1,input2){ return ((!input1.state) && input2.state) && (input1.state && (!input2.state) ); } )", 
+       "(function(input1,input2){ return input1.state || input2.state; } )"
+   ],
+   "truthTable": [
+      {"inputs": [{"id":"A", "state":true, "delay":0},  {"id":"B", "state":false, "delay":0} ], "expectedResult":true},
+      {"inputs": [{"id":"A", "state":true, "delay":0},  {"id":"B", "state":true, "delay":0} ], "expectedResult":true},
+      {"inputs": [{"id":"A", "state":false, "delay":0},  {"id":"B", "state":false, "delay":0}], "expectedResult":false}
+   ],
+   "resultInputId" : "AB"
+}

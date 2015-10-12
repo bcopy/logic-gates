@@ -1,0 +1,16 @@
+{
+   "title" : "More numbers",
+   "subtitle" : "A little bit of this...",
+   "operations" : ["operation1", "operation2", "operation3"],
+   "operators": [
+       "(function(input1,input2){ return input1.state + (input2?input2.state:0); } )",
+       "(function(input1,input2){  return input1.state * 2 ; } )", 
+       "(function(input1,input2){  return input1.state -1 ; } )"
+   ],
+   "truthTable": [
+      {"inputs": [{"id":"A", "state":1, "delay":0} ,  {"id":"B", "state":1, "delay":0} ], "expectedResult":2},
+      {"inputs": [{"id":"A", "state":2, "delay":0} ,  {"id":"B", "state":1, "delay":0}], "expectedResult":3},
+      {"inputs": [{"id":"A", "state":3, "delay":0}, {"id":"B", "state":2, "delay":0} ], "expectedResult":6}
+   ],
+   "resultInputId" : "AB"
+}

@@ -1,0 +1,17 @@
+{
+   "title" : "On the way to the top",
+   "subtitle" : "I met more complications...",
+   "operations" : ["operation1", "operation2"],
+   "operators": [
+       "(function(input1,input2){ return ((!input1.state) && input2.state) || (input1.state && (!input2.state) ); } )", 
+       "(function(input1,input2){ return input1.state && input2.state; } )",
+       "(function(input1,input2){ return input1.state || input2.state; } )"
+   ],
+   "truthTable": [
+      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":false, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":true},
+      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":false},
+      {"inputs": [{"id":"A", "state":false, "delay":0}, {"id":"B", "state":false, "delay":0}, {"id":"C", "state":true, "delay":1}], "expectedResult":false},
+      {"inputs": [{"id":"A", "state":true, "delay":0}, {"id":"B", "state":true, "delay":0}, {"id":"C", "state":false, "delay":1}], "expectedResult":false}
+   ],
+   "resultInputId" : "ABC"
+}

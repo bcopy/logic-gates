@@ -1,0 +1,27 @@
+        define Input {
+            initId : null,
+            initState: false,
+            initOrder: 0,
+            constructor : function(initId, initState, initOrder) {
+              this.id = initId;
+              this.state = initState;
+              this.order = initOrder;
+            }
+        }
+        
+        define Operation {
+          constructor : function(operationId, operationFn){
+             this.id = operationId;
+             this.perform = operationFn;
+          }
+        }
+        rule RuleAB {
+            when {
+                a : Input a.id == "A";
+                b : Input b.id == "B";
+                o : Operation o.id == "operation1";
+            }
+            then {
+                assert(new Input("AB", o.perform(a,b), 1 ));
+            }
+        }

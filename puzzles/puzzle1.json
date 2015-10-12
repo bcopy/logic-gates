@@ -1,0 +1,15 @@
+{
+   "title" : "Let's begin...",
+   "subtitle" : "with arithmetics 101...",
+   "operations" : ["operation1", "operation2"],
+   "operators": [
+       "(function(input1){ return input1.state + 1; } )",
+       "(function(input1){ return input1.state * 2; } )",
+       "(function(input1){ return input1.state - 1; } )"
+   ],
+   "truthTable": [
+      {"inputs": [{"id":"A", "state":3, "delay":0}], "expectedResult":5},
+      {"inputs": [{"id":"A", "state":2, "delay":0}], "expectedResult":3}
+   ],
+   "resultInputId" : "A3"
+}
