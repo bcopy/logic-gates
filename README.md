@@ -8,9 +8,9 @@ Play the game at:
 http://bcopy.github.io/logic-gates/
 
 Keys :
-X = place a square operator
-Y = place a circle operator
-Z = place a triangle operator
+* X = place a square operator
+* Y = place a circle operator
+* Z = place a triangle operator
 
-R = Reload
-S = Reset (return to the first puzzle, erase all progress)
+* R = Reload
+* S = Reset (return to the first puzzle, erase all progress)
