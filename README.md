@@ -1,5 +1,7 @@
 # Logic Gates
 
+![](https://raw.githubusercontent.com/bcopy/logic-gates/master/stand-thumbnail.jpg)
+
 An interactive browser-based logic game.
 Using SVG, D3 and the excellent "nools" Javascript Rete engine library, this game helps teach logic gates and how 
 the concept of input and operator applies to pretty much anything in life.
@@ -14,3 +16,4 @@ Keys :
 * Z = place a triangle operator
 * R = Reload
 * S = Reset (return to the first puzzle, erase all progress)
+
